@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>あなたの太るスイッチ診断｜太るスイッチの消し方</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --cream: #FAF6EF;
+    --beige: #F0E8D8;
+    --teal: #2A7C76;
+    --teal-light: #3D9E97;
+    --gold: #B8922A;
+    --gold-light: #D4AF5A;
+    --dark: #2C2418;
+    --muted: #7A6B55;
+    --white: #FFFFFF;
+    --accent-red: #C4433A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Noto Sans JP', sans-serif;
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* ── ラッパー ── */
+  .wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 40px 24px 64px;
+  }
+
+  /* ── ヘッダー ── */
+  .brand {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.55;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .hero-title span { color: var(--teal); }
+
+  .hero-sub {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  /* ── 進捗バー ── */
+  .progress-wrap {
+    margin-bottom: 28px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: var(--beige);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--teal), var(--teal-light));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ── 質問カード ── */
+  .question-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 1.5px solid var(--beige);
+    padding: 28px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(42,124,118,0.06);
+  }
+
+  .question-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+
+  .question-text {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.75;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+
+  .choice-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .choice-btn {
+    border: 2px solid var(--beige);
+    background: var(--cream);
+    border-radius: 10px;
+    padding: 14px 10px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: center;
+  }
+
+  .choice-btn:hover {
+    border-color: var(--teal-light);
+    color: var(--teal);
+    background: rgba(42,124,118,0.05);
+  }
+
+  .choice-btn.selected-yes {
+    border-color: var(--teal);
+    background: var(--teal);
+    color: white;
+  }
+
+  .choice-btn.selected-no {
+    border-color: var(--beige);
+    background: var(--beige);
+    color: var(--muted);
+  }
+
+  /* ── ナビボタン ── */
+  .nav-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .btn-back {
+    flex: 1;
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid var(--beige);
+    background: transparent;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .btn-next {
+    flex: 2;
+    padding: 14px;
+    border-radius: 10px;
+    border: none;
+    background: var(--teal);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .btn-next:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .btn-result {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    font-family: 'Noto Serif JP', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    margin-top: 8px;
+    box-shadow: 0 4px 14px rgba(42,124,118,0.25);
+  }
+
+  /* ── 結果画面 ── */
+  #result-screen {
+    display: none;
+  }
+
+  .result-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .result-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .result-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .result-type {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .result-card {
+    background: var(--white);
+    border-radius: 16px;
+    border: 2px solid var(--gold-light);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(184,146,42,0.1);
+  }
+
+  .result-icon {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .result-desc {
+    font-size: 14px;
+    color: var(--dark);
+    line-height: 1.95;
+    margin-bottom: 16px;
+  }
+
+  .result-switch {
+    background: var(--beige);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .result-switch-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .result-switch-text {
+    font-size: 13px;
+    color: var(--dark);
+    line-height: 1.8;
+    font-weight: 500;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .cta-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 8px;
+  }
+
+  .cta-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+
+  .cta-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .cta-price {
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+
+  .cta-price-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 4px;
+  }
+
+  .cta-price-amount {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .cta-price-amount small {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .cta-price-note {
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 2px;
+  }
+
+  .line-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    background: #06C755;
+    border: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  }
+
+  .disclaimer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-top: 16px;
+  }
+
+  /* ── divider ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+  }
+  .divider-icon { color: var(--gold); font-size: 13px; }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ── 診断画面 ── -->
+  <div id="quiz-screen">
+
+    <div class="brand">太るスイッチの消し方</div>
+    <h1 class="hero-title">あなたの<span>太るスイッチ</span>を<br>チェックする</h1>
+    <p class="hero-sub">当てはまるものを選んでください。<br>10問に答えると、あなたのタイプがわかります。</p>
+
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="progress-text">1 / 10</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <div class="question-card" id="question-card">
+      <div class="question-num" id="q-num">Q1</div>
+      <div class="question-text" id="q-text"></div>
+      <div class="choice-row">
+        <button class="choice-btn" id="btn-yes" onclick="answer(true)">当てはまる</button>
+        <button class="choice-btn" id="btn-no" onclick="answer(false)">当てはまらない</button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" id="btn-back" onclick="goBack()">← 戻る</button>
+      <button class="btn-next" id="btn-next" onclick="goNext()" disabled>次へ →</button>
+    </div>
+
+  </div>
+
+  <!-- ── 結果画面 ── -->
+  <div id="result-screen">
+
+    <div class="result-header">
+      <div class="result-eyebrow">太るスイッチの消し方</div>
+      <div class="result-label">あなたのタイプは</div>
+      <div class="result-type" id="result-type-name"></div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-icon" id="result-icon"></div>
+      <div class="result-desc" id="result-desc"></div>
+      <div class="result-switch">
+        <div class="result-switch-label">あなたの太るスイッチ</div>
+        <div class="result-switch-text" id="result-switch"></div>
+      </div>
+    </div>
+
+    <div class="divider"><span class="divider-icon">✦</span></div>
+
+    <div class="cta-section">
+      <div class="cta-label">FIRST STEP</div>
+      <div class="cta-title">まず、身体の土台を整えることから<br>始めませんか。</div>
+      <div class="cta-sub">
+        詳しい解説と、あなたに合った<br>
+        具体的なアプローチはオンライン診断でお伝えします。
+      </div>
+      <div class="cta-price">
+        <div class="cta-price-label">スタートメニュー</div>
+        <div class="cta-price-amount"><small>¥</small>3,980 <small>× 4回</small></div>
+        <div class="cta-price-note">身体のOS書き換え 体験プログラム</div>
+      </div>
+      <a class="line-btn" href="https://lin.ee/XXXXXXX" target="_blank">
+        LINEでオンライン無料診断を予約する
+      </a>
+    </div>
+
+    <p class="disclaimer">
+      ※ 診断結果は傾向をお伝えするものです。<br>
+      個人差があり、医療的な診断ではありません。
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+  const questions = [
+    "朝起きた時から、すでに疲れが残っている",
+    "食後に強い眠気や、だるさを感じる",
+    "おなかが張りやすく、ガスやゲップがよく出る",
+    "下痢や便秘を繰り返す、またはスッキリ出ない",
+    "手足や下腹部が冷えやすく、冷たい飲食で調子を崩す",
+    "運動しても汗をかきにくい、または汗が止まらない",
+    "口の中が渇きやすく、唾液がネバネバすることがある",
+    "便がコロコロして硬く、排便に力が必要である",
+    "緊張やストレスを感じると、すぐにお腹の調子が悪くなる",
+    "頭が常に働いている感じで休まらず、音や人にどっと疲れる"
+  ];
+
+  const types = {
+    虚弱: {
+      name: "虚弱タイプ",
+      icon: "🌿",
+      desc: "エネルギーの生産効率が低下しています。食べたものを力に変える土台が弱っているため、疲れが抜けにくく、代謝が上がりにくい状態です。ダイエットより前に、まず身体が動けるベースをつくることが先決です。",
+      sw: "エネルギー代謝の低下。腸の働きが弱まり、栄養を吸収する力が落ちています。"
+    },
+    停滞: {
+      name: "停滞タイプ",
+      icon: "🌀",
+      desc: "腸の流れが滞っています。老廃物が溜まりやすく、むくみや体重の変動が起きやすい状態です。腸を動かして流れを回復させることで、身体全体の代謝が動き始めます。",
+      sw: "腸の蠕動運動の低下。老廃物の滞留が代謝を邪魔しています。"
+    },
+    冷え火照り: {
+      name: "冷え・火照りタイプ",
+      icon: "🌡️",
+      desc: "体温調節がうまくいっていません。冷えている部分と火照る部分が混在し、血流のムラが脂肪燃焼を妨げています。まず体内の循環を整えることが重要です。",
+      sw: "体温調節と血流のアンバランス。末端の冷えが代謝低下につながっています。"
+    },
+    乾燥: {
+      name: "乾燥タイプ",
+      icon: "💧",
+      desc: "身体の潤いが不足しています。腸の粘膜が乾燥すると、便が硬くなり排出が滞ります。水分・油分のバランスを整えることで、腸の動きが改善されていきます。",
+      sw: "腸粘膜の乾燥。潤い不足が排出を妨げ、老廃物の蓄積を招いています。"
+    },
+    ストレス: {
+      name: "ストレスタイプ",
+      icon: "🧠",
+      desc: "自律神経の乱れが腸に影響しています。脳と腸は密接につながっており、ストレスが腸の動きを乱し、代謝にも影響します。腸を整えることで、メンタルの安定にもつながります。",
+      sw: "自律神経の乱れによる腸へのストレス。脳腸相関が太るスイッチになっています。"
+    },
+    複合: {
+      name: "複合タイプ",
+      icon: "⚡",
+      desc: "複数のスイッチが入り混じっています。一つの原因ではなく、身体全体のバランスが崩れている状態です。どこから手をつけるかを個別に見極めることが、遠回りしない近道です。",
+      sw: "複数の要因が重なっています。まずは身体の現状を整理することから始めましょう。"
+    }
+  };
+
+  let current = 0;
+  let answers = new Array(10).fill(null);
+
+  function renderQuestion() {
+    document.getElementById('q-num').textContent = `Q${current + 1}`;
+    document.getElementById('q-text').textContent = questions[current];
+
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+    const btnNext = document.getElementById('btn-next');
+    const btnBack = document.getElementById('btn-back');
+
+    btnYes.className = 'choice-btn';
+    btnNo.className = 'choice-btn';
+
+    if (answers[current] === true) {
+      btnYes.classList.add('selected-yes');
+      btnNext.disabled = false;
+    } else if (answers[current] === false) {
+      btnNo.classList.add('selected-no');
+      btnNext.disabled = false;
+    } else {
+      btnNext.disabled = true;
+    }
+
+    btnBack.style.visibility = current === 0 ? 'hidden' : 'visible';
+
+    const isLast = current === questions.length - 1;
+    btnNext.textContent = isLast ? '結果を見る →' : '次へ →';
+
+    // progress
+    const pct = Math.round((current / questions.length) * 100);
+    document.getElementById('progress-text').textContent = `${current + 1} / ${questions.length}`;
+    document.getElementById('progress-pct').textContent = `${pct}%`;
+    document.getElementById('progress-fill').style.width = `${pct}%`;
+  }
+
+  function answer(val) {
+    answers[current] = val;
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+    btnYes.className = 'choice-btn' + (val ? ' selected-yes' : '');
+    btnNo.className = 'choice-btn' + (!val ? ' selected-no' : '');
+    document.getElementById('btn-next').disabled = false;
+  }
+
+  function goNext() {
+    if (answers[current] === null) return;
+    if (current === questions.length - 1) {
+      showResult();
+    } else {
+      current++;
+      renderQuestion();
+    }
+  }
+
+  function goBack() {
+    if (current > 0) {
+      current--;
+      renderQuestion();
+    }
+  }
+
+  function getType() {
+    const a = answers;
+    // 上から順番にクリア
+    if (a[0] || a[1]) return '虚弱';
+    if (a[2] || a[3]) return '停滞';
+    if (a[4] || a[5]) return '冷え火照り';
+    if (a[6] && a[7]) return '乾燥';
+    if (a[8] && a[9]) return 'ストレス';
+    // すべて当てはまらない or 複数かかる場合
+    const anyYes = a.some(v => v === true);
+    return anyYes ? '複合' : 'ストレス';
+  }
+
+  function showResult() {
+    const typeKey = getType();
+    const type = types[typeKey];
+
+    document.getElementById('result-type-name').textContent = type.name;
+    document.getElementById('result-icon').textContent = type.icon;
+    document.getElementById('result-desc').textContent = type.desc;
+    document.getElementById('result-switch').textContent = type.sw;
+
+    document.getElementById('quiz-screen').style.display = 'none';
+    document.getElementById('result-screen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // progress完了
+    document.getElementById('progress-fill').style.width = '100%';
+    document.getElementById('progress-pct').textContent = '100%';
+  }
+
+  // init
+  renderQuestion();
+</script>
+</body>
+</html>
