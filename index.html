@@ -454,7 +454,7 @@
     <div class="cta-section">
       <div class="cta-label">詳しい解説は公式LINEにて</div>
       <div class="cta-title">あなたの太るスイッチと<br>その消し方をお伝えします。</div>
-      <a class="line-btn" href="https://lin.ee/8EMhfY0" target="_blank">
+      <a class="line-btn" id="line-btn" href="https://lin.ee/8EMhfY0" target="_blank">
         公式LINEで診断結果の解説を受け取る
       </a>
     </div>
@@ -486,32 +486,38 @@
     虚弱: {
       name: "虚弱タイプ",
       icon: "🌿",
-      copy: "頑張れない身体には、理由があります。"
+      copy: "頑張れない身体には、理由があります。",
+      line: "https://line.me/R/oaMessage/@329qojuw/?虚弱タイプ"
     },
     停滞: {
       name: "停滞タイプ",
       icon: "🌀",
-      copy: "流れが止まると、脂肪は溜まる一方です。"
+      copy: "流れが止まると、脂肪は溜まる一方です。",
+      line: "https://line.me/R/oaMessage/@329qojuw/?停滞タイプ"
     },
     冷え火照り: {
       name: "冷え・火照りタイプ",
       icon: "🌡️",
-      copy: "体温のムラが、代謝の邪魔をしています。"
+      copy: "体温のムラが、代謝の邪魔をしています。",
+      line: "https://line.me/R/oaMessage/@329qojuw/?冷え・火照りタイプ"
     },
     乾燥: {
       name: "乾燥タイプ",
       icon: "💧",
-      copy: "出せない身体が、太る身体をつくっています。"
+      copy: "出せない身体が、太る身体をつくっています。",
+      line: "https://line.me/R/oaMessage/@329qojuw/?乾燥タイプ"
     },
     ストレス: {
       name: "ストレスタイプ",
       icon: "🧠",
-      copy: "腸とメンタルは、つながっています。"
+      copy: "腸とメンタルは、つながっています。",
+      line: "https://line.me/R/oaMessage/@329qojuw/?ストレスタイプ"
     },
     土台OK: {
       name: "土台はOKタイプ",
       icon: "✨",
-      copy: "身体の準備は整っています。あとは正しいアプローチだけです。"
+      copy: "身体の準備は整っています。あとは正しいアプローチだけです。",
+      line: "https://line.me/R/oaMessage/@329qojuw/?土台はOKタイプ"
     }
   };
 
@@ -596,6 +602,7 @@
     document.getElementById('result-type-name').textContent = type.name;
     document.getElementById('result-icon').textContent = type.icon;
     document.getElementById('result-copy').textContent = type.copy;
+    document.getElementById('line-btn').href = type.line;
 
     document.getElementById('quiz-screen').style.display = 'none';
     document.getElementById('result-screen').style.display = 'block';
