@@ -243,7 +243,14 @@
     font-weight: 700;
     color: var(--teal);
     line-height: 1.3;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
+  }
+
+  .result-copy {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 500;
   }
 
   .result-card {
@@ -299,9 +306,11 @@
   }
 
   .cta-label {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    color: rgba(255,255,255,0.8);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.6;
     margin-bottom: 8px;
   }
 
@@ -435,34 +444,18 @@
     <div class="result-header">
       <div class="result-eyebrow">太るスイッチの消し方</div>
       <div class="result-label">あなたのタイプは</div>
-      <div class="result-type" id="result-type-name"></div>
-    </div>
-
-    <div class="result-card">
       <div class="result-icon" id="result-icon"></div>
-      <div class="result-desc" id="result-desc"></div>
-      <div class="result-switch">
-        <div class="result-switch-label">あなたの太るスイッチ</div>
-        <div class="result-switch-text" id="result-switch"></div>
-      </div>
+      <div class="result-type" id="result-type-name"></div>
+      <div class="result-copy" id="result-copy"></div>
     </div>
 
     <div class="divider"><span class="divider-icon">✦</span></div>
 
     <div class="cta-section">
-      <div class="cta-label">FIRST STEP</div>
-      <div class="cta-title">まず、身体の土台を整えることから<br>始めませんか。</div>
-      <div class="cta-sub">
-        詳しい解説と、あなたに合った<br>
-        具体的なアプローチはオンライン診断でお伝えします。
-      </div>
-      <div class="cta-price">
-        <div class="cta-price-label">スタートメニュー</div>
-        <div class="cta-price-amount"><small>¥</small>3,980 <small>× 4回</small></div>
-        <div class="cta-price-note">身体のOS書き換え 体験プログラム</div>
-      </div>
+      <div class="cta-label">詳しい解説は公式LINEにて</div>
+      <div class="cta-title">あなたの太るスイッチと<br>その消し方をお伝えします。</div>
       <a class="line-btn" href="https://lin.ee/XXXXXXX" target="_blank">
-        LINEでオンライン無料診断を予約する
+        公式LINEで診断結果の解説を受け取る
       </a>
     </div>
 
@@ -493,38 +486,32 @@
     虚弱: {
       name: "虚弱タイプ",
       icon: "🌿",
-      desc: "エネルギーの生産効率が低下しています。食べたものを力に変える土台が弱っているため、疲れが抜けにくく、代謝が上がりにくい状態です。ダイエットより前に、まず身体が動けるベースをつくることが先決です。",
-      sw: "エネルギー代謝の低下。腸の働きが弱まり、栄養を吸収する力が落ちています。"
+      copy: "頑張れない身体には、理由があります。"
     },
     停滞: {
       name: "停滞タイプ",
       icon: "🌀",
-      desc: "腸の流れが滞っています。老廃物が溜まりやすく、むくみや体重の変動が起きやすい状態です。腸を動かして流れを回復させることで、身体全体の代謝が動き始めます。",
-      sw: "腸の蠕動運動の低下。老廃物の滞留が代謝を邪魔しています。"
+      copy: "流れが止まると、脂肪は溜まる一方です。"
     },
     冷え火照り: {
       name: "冷え・火照りタイプ",
       icon: "🌡️",
-      desc: "体温調節がうまくいっていません。冷えている部分と火照る部分が混在し、血流のムラが脂肪燃焼を妨げています。まず体内の循環を整えることが重要です。",
-      sw: "体温調節と血流のアンバランス。末端の冷えが代謝低下につながっています。"
+      copy: "体温のムラが、代謝の邪魔をしています。"
     },
     乾燥: {
       name: "乾燥タイプ",
       icon: "💧",
-      desc: "身体の潤いが不足しています。腸の粘膜が乾燥すると、便が硬くなり排出が滞ります。水分・油分のバランスを整えることで、腸の動きが改善されていきます。",
-      sw: "腸粘膜の乾燥。潤い不足が排出を妨げ、老廃物の蓄積を招いています。"
+      copy: "出せない身体が、太る身体をつくっています。"
     },
     ストレス: {
       name: "ストレスタイプ",
       icon: "🧠",
-      desc: "自律神経の乱れが腸に影響しています。脳と腸は密接につながっており、ストレスが腸の動きを乱し、代謝にも影響します。腸を整えることで、メンタルの安定にもつながります。",
-      sw: "自律神経の乱れによる腸へのストレス。脳腸相関が太るスイッチになっています。"
+      copy: "腸とメンタルは、つながっています。"
     },
-    複合: {
-      name: "複合タイプ",
-      icon: "⚡",
-      desc: "複数のスイッチが入り混じっています。一つの原因ではなく、身体全体のバランスが崩れている状態です。どこから手をつけるかを個別に見極めることが、遠回りしない近道です。",
-      sw: "複数の要因が重なっています。まずは身体の現状を整理することから始めましょう。"
+    土台OK: {
+      name: "土台はOKタイプ",
+      icon: "✨",
+      copy: "身体の準備は整っています。あとは正しいアプローチだけです。"
     }
   };
 
@@ -593,15 +580,13 @@
 
   function getType() {
     const a = answers;
-    // 上から順番にクリア
     if (a[0] || a[1]) return '虚弱';
     if (a[2] || a[3]) return '停滞';
     if (a[4] || a[5]) return '冷え火照り';
     if (a[6] && a[7]) return '乾燥';
     if (a[8] && a[9]) return 'ストレス';
-    // すべて当てはまらない or 複数かかる場合
     const anyYes = a.some(v => v === true);
-    return anyYes ? '複合' : 'ストレス';
+    return anyYes ? 'ストレス' : '土台OK';
   }
 
   function showResult() {
@@ -610,14 +595,12 @@
 
     document.getElementById('result-type-name').textContent = type.name;
     document.getElementById('result-icon').textContent = type.icon;
-    document.getElementById('result-desc').textContent = type.desc;
-    document.getElementById('result-switch').textContent = type.sw;
+    document.getElementById('result-copy').textContent = type.copy;
 
     document.getElementById('quiz-screen').style.display = 'none';
     document.getElementById('result-screen').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    // progress完了
     document.getElementById('progress-fill').style.width = '100%';
     document.getElementById('progress-pct').textContent = '100%';
   }
