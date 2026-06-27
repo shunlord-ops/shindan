@@ -23,7 +23,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: var(--cream);
+    background: #ffdd4e;
     font-family: 'Noto Sans JP', sans-serif;
     color: var(--dark);
     min-height: 100vh;
@@ -153,9 +153,9 @@
   }
 
   .choice-btn.selected-no {
-    border-color: var(--beige);
-    background: var(--beige);
-    color: var(--muted);
+    border-color: var(--teal);
+    background: var(--teal);
+    color: white;
   }
 
   /* ── ナビボタン ── */
@@ -232,7 +232,7 @@
 
   .result-label {
     font-family: 'Noto Serif JP', serif;
-    font-size: 13px;
+    font-size: 26px;
     color: var(--muted);
     margin-bottom: 6px;
   }
@@ -486,6 +486,7 @@
     虚弱: {
       name: "虚弱タイプ",
       icon: "🌿",
+      img: "https://shunlord-ops.github.io/shindan/kyojaku.png",
       copy: "頑張れない身体には、理由があります。",
       line: "https://line.me/R/oaMessage/@329qojuw/?虚弱タイプ"
     },
@@ -600,9 +601,15 @@
     const type = types[typeKey];
 
     document.getElementById('result-type-name').textContent = type.name;
-    document.getElementById('result-icon').textContent = type.icon;
     document.getElementById('result-copy').textContent = type.copy;
     document.getElementById('line-btn').href = type.line;
+
+    const iconEl = document.getElementById('result-icon');
+    if (type.img) {
+      iconEl.innerHTML = `<img src="${type.img}" alt="${type.name}" style="width:180px;height:auto;margin:0 auto;display:block;">`;
+    } else {
+      iconEl.textContent = type.icon;
+    }
 
     document.getElementById('quiz-screen').style.display = 'none';
     document.getElementById('result-screen').style.display = 'block';
