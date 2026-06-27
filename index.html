@@ -253,6 +253,28 @@
     font-weight: 500;
   }
 
+  .result-symptoms {
+    margin-top: 20px;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1.5px solid var(--beige);
+    text-align: left;
+  }
+
+  .result-symptoms-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .result-symptoms-item {
+    font-size: 14px;
+    color: var(--dark);
+    line-height: 1.9;
+  }
+
   .result-card {
     background: var(--white);
     border-radius: 16px;
@@ -447,6 +469,7 @@
       <div class="result-icon" id="result-icon"></div>
       <div class="result-type" id="result-type-name"></div>
       <div class="result-copy" id="result-copy"></div>
+      <div class="result-symptoms" id="result-symptoms"></div>
     </div>
 
     <div class="divider"><span class="divider-icon">✦</span></div>
@@ -488,36 +511,42 @@
       icon: "🌿",
       img: "https://shunlord-ops.github.io/shindan/kyojaku.png",
       copy: "頑張れない身体には、理由があります。",
+      symptoms: ["身体が重い", "下腹や腰周りが冷たい", "排便が力まないと出ない"],
       line: "https://line.me/R/oaMessage/@329qojuw/?虚弱タイプ"
     },
     停滞: {
       name: "停滞タイプ",
       icon: "🌀",
       copy: "流れが止まると、脂肪は溜まる一方です。",
+      symptoms: ["すぐ、ため息が出る", "オナラやゲップが多い", "排便がスッキリしない"],
       line: "https://line.me/R/oaMessage/@329qojuw/?停滞タイプ"
     },
     冷え火照り: {
       name: "冷え・火照りタイプ",
       icon: "🌡️",
       copy: "体温のムラが、代謝の邪魔をしています。",
+      symptoms: ["動悸がする時がある", "手や足が冷たい", "冷たい物で不調"],
       line: "https://line.me/R/oaMessage/@329qojuw/?冷え・火照りタイプ"
     },
     乾燥: {
       name: "乾燥タイプ",
       icon: "💧",
       copy: "出せない身体が、太る身体をつくっています。",
+      symptoms: ["肌・髪・喉が乾燥しやすい", "夜に口が渇く", "寝汗をかく"],
       line: "https://line.me/R/oaMessage/@329qojuw/?乾燥タイプ"
     },
     ストレス: {
       name: "ストレスタイプ",
       icon: "🧠",
       copy: "腸とメンタルは、つながっています。",
+      symptoms: ["頭が休まらない", "完璧主義", "不安で便通が乱れる"],
       line: "https://line.me/R/oaMessage/@329qojuw/?ストレスタイプ"
     },
     土台OK: {
       name: "土台はOKタイプ",
       icon: "✨",
       copy: "身体の準備は整っています。あとは正しいアプローチだけです。",
+      symptoms: [],
       line: "https://line.me/R/oaMessage/@329qojuw/?土台はOKタイプ"
     }
   };
@@ -609,6 +638,17 @@
       iconEl.innerHTML = `<img src="${type.img}" alt="${type.name}" style="width:180px;height:auto;margin:0 auto;display:block;">`;
     } else {
       iconEl.textContent = type.icon;
+    }
+
+    const symptomsEl = document.getElementById('result-symptoms');
+    if (type.symptoms && type.symptoms.length > 0) {
+      symptomsEl.innerHTML = `
+        <div class="result-symptoms-title">こんな症状ありませんか？</div>
+        ${type.symptoms.map(s => `<div class="result-symptoms-item">☑️ ${s}</div>`).join('')}
+      `;
+      symptomsEl.style.display = 'block';
+    } else {
+      symptomsEl.style.display = 'none';
     }
 
     document.getElementById('quiz-screen').style.display = 'none';
